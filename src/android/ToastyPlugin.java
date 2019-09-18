@@ -17,8 +17,7 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-
-
+import android.os.Build;
 
 public class ToastyPlugin extends CordovaPlugin {
   
@@ -32,20 +31,22 @@ public class ToastyPlugin extends CordovaPlugin {
         callbackContext.error("\"" + action + "\" is not a recognized action.");
         return false;
       }
-      cordova.getActivity().runOnUiThread(new Runnable() {
-        @SuppressWarnings("ResourceType")
-        @Override
-        public void run() {
+      if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
+        cordova.getActivity().runOnUiThread(new Runnable() {
+          @SuppressWarnings("ResourceType")
+          @Override
+          public void run() {
 
-            final CordovaActivity cordovaActivity = (CordovaActivity) cordova.getActivity();
+              final CordovaActivity cordovaActivity = (CordovaActivity) cordova.getActivity();
 
-            ViewGroup mainViewGroup = (ViewGroup) webView.getView().getParent();
+              ViewGroup mainViewGroup = (ViewGroup) webView.getView().getParent();
 
-            ViewGroup rootView = (ViewGroup) mainViewGroup.getParent();
+              ViewGroup rootView = (ViewGroup) mainViewGroup.getParent();
 
-            rootView.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
-        }
-      });
+              rootView.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+          }
+        });
+      }
       return true;
   }
 }
