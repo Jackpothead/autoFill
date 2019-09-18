@@ -43,7 +43,7 @@ public class ToastyPlugin extends CordovaPlugin {
 
             ViewGroup rootView = (ViewGroup) mainViewGroup.getParent();
 
-            rootView.setImportantForAutofill(IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+            rootView.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
         }
       });
       return true;
